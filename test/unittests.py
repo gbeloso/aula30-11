@@ -91,3 +91,64 @@ def test_should_not_have_duplicated_item():
     list.add(item1)
     with pytest.raises(DuplicateItemError):
         list.add(item2)
+
+def test_item_change_description_from_list():
+    item1 = TodoItem('make bed', Priority.LOW)
+    item2 = TodoItem('withdraw cash', Priority.MEDIUM)
+    item3 = TodoItem('call mom', Priority.HIGH)
+    owner = User('Joe Doe', 'joe@doe.com', '1234')
+    list = TodoList(owner)
+    list.add(item1)
+    list.add(item2)
+    list.add(item3)
+    list.change_description('make bed', 'clean bed')
+    assert list.find('clean bed') != None
+    assert list.find('make bed') == None
+
+def test_item_change_description_from_list_duplicate():
+    item1 = TodoItem('make bed', Priority.LOW)
+    item2 = TodoItem('withdraw cash', Priority.MEDIUM)
+    item3 = TodoItem('call mom', Priority.HIGH)
+    owner = User('Joe Doe', 'joe@doe.com', '1234')
+    list = TodoList(owner)
+    list.add(item1)
+    list.add(item2)
+    list.add(item3)
+    with pytest.raises(DuplicateItemError):
+        list.change_description('make bed', 'call mom')
+
+def test_complete_item_by_desc_from_list():
+    item1 = TodoItem('make bed', Priority.LOW)
+    item2 = TodoItem('withdraw cash', Priority.MEDIUM)
+    item3 = TodoItem('call mom', Priority.HIGH)
+    owner = User('Joe Doe', 'joe@doe.com', '1234')
+    list = TodoList(owner)
+    list.add(item1)
+    list.add(item2)
+    list.add(item3)
+    list.complete_item_by_desc('call mom')
+    assert item3.completed == True
+
+def test_completed_by_desc_item_got_to_bottom_of_list():
+    item1 = TodoItem('make bed', Priority.LOW)
+    item2 = TodoItem('withdraw cash', Priority.MEDIUM)
+    item3 = TodoItem('call mom', Priority.HIGH)
+    owner = User('Joe Doe', 'joe@doe.com', '1234')
+    todolist = TodoList(owner)
+    todolist.add(item1)
+    todolist.add(item2)
+    todolist.add(item3)
+    todolist.complete_item_by_desc('call mom')
+    assert todolist.list[2] == item3
+
+def test_completed_by_index_item_got_to_bottom_of_list():
+    item1 = TodoItem('make bed', Priority.LOW)
+    item2 = TodoItem('withdraw cash', Priority.MEDIUM)
+    item3 = TodoItem('call mom', Priority.HIGH)
+    owner = User('Joe Doe', 'joe@doe.com', '1234')
+    todolist = TodoList(owner)
+    todolist.add(item1)
+    todolist.add(item2)
+    todolist.add(item3)
+    todolist.complete(0)
+    assert todolist.list[2] == item3
