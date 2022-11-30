@@ -1,4 +1,4 @@
-from src.test.usecase.inmemoryuserrepository import InMemoryUserRepository
+from test.usecase.inmemoryuserrepository import InMemoryUserRepository
 from src.usecases.signup import SignUp
 from src.usecases.signin import SignIn
 from src.usecases.createtodolist import CreateTodoList
@@ -9,9 +9,9 @@ from src.usecases.errors.invalidpassworderror import InvalidPasswordError
 from src.usecases.errors.invalidcredentialserror import InvalidCredentialsError
 from src.usecases.errors.invalidusererror import InvalidUserError
 from src.usecases.errors.duplicatetodolisterror import DuplicateTodoListError
-from src.test.usecase.fakehashservice import FakeHashService
-from src.test.usecase.inmemorytodolistrepository import InMemoryTodoListRepository
-from src.entities.errors.DuplicateItemError import DuplicateItemError
+from test.usecase.fakehashservice import FakeHashService
+from test.usecase.inmemorytodolistrepository import InMemoryTodoListRepository
+from src.entities.errors.duplicateitemerror import DuplicateItemError
 
 
 
